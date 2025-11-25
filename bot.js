@@ -2,10 +2,9 @@ import { Telegraf, Markup } from "telegraf";
 
 export const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const ADMINS = [-1003371815477];  // ID канала или юзера (минус обязателен для каналов)
-const PRICE = 300;                // цена в звездах
+const ADMINS = [-1003371815477];  // ID канала или юзера
+const PRICE = 300;
 
-// /start
 bot.start((ctx) => {
   ctx.reply(
     "✨ Добро пожаловать!\n\n" +
@@ -21,7 +20,6 @@ bot.start((ctx) => {
   );
 });
 
-// Кнопка "Купить"
 bot.action("BUY", async (ctx) => {
   await ctx.answerCbQuery();
 
@@ -29,18 +27,16 @@ bot.action("BUY", async (ctx) => {
     title: "Все Локации",
     description: "Игровой актив",
     payload: "all_locations_001",
-    provider_token: "", // пусто для Stars
-    currency: "XTR",     // валюта Stars
+    provider_token: "",
+    currency: "XTR",
     prices: [{ label: "Все Локации", amount: PRICE }],
   });
 });
 
-// Pre-checkout
 bot.on("pre_checkout_query", async (ctx) => {
   await ctx.answerPreCheckoutQuery(true);
 });
 
-// Успешная оплата
 bot.on("successful_payment", async (ctx) => {
   const u = ctx.message.from;
 
