@@ -30,7 +30,8 @@ function createInvoice({ title, description, payload, amount }) {
     title,
     description,
     payload,
-    provider_token: "", // TODO: сюда вставь provider_token для Telegram Stars
+    // ИСПРАВЛЕНО: ТОКЕН БЕРЕТСЯ ИЗ ПЕРЕМЕННЫХ ОКРУЖЕНИЯ VERCEL
+    provider_token: process.env.PROVIDER_TOKEN,
     currency: "XTR",
     prices: [
       {
